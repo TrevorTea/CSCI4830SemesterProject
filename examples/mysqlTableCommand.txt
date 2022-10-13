@@ -1,0 +1,13 @@
+create table potholes (
+	id smallint not null key auto_increment, 
+	address tinytext not null, 
+	severity tinyint not null, 
+	status enum('NOT REPAIRED','WIP','REPAIRED'), 
+	hits tinyint not null, 
+	lastHit datetime default current_timestamp, 
+	material tinytext not null); 
+
+
+create table potholes (id smallint not null key auto_increment, address tinytext not null, severity tinyint not null, status enum('NOT REPAIRED','WIP','REPAIRED'), hits tinyint not null, lastHit datetime default current_timestamp, material tinytext not null); 
+
+insert into potholes (address, severity, status, hits, material) values ('1601 S 64th St, Omaha, NE 68106', 10, 'NOT REPAIRED', 1, 'concrete');
