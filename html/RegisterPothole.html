@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Pothole Register</title>
+    </head>
+    <body>
+        <form action="RegisterPothole" method="post">
+            <p>Address: <input type="text" name="address" /></p>
+            <p>Severity: <input type="number" name="severity" /></p>
+            <p><label for="status">Status</label>
+            <select id="status" name="status">
+                <option value = "np">NOT REPAIRED</option>
+                <option value = "wip">WIP</option>
+                <option value = "rp">REPAIRED</option>
+            </select>
+            </p>
+            <p>Material: <input type="text" name="isbn" /></p>
+            <p><input type="submit" /></p>
+        </form>
+    </body>
+</html>
