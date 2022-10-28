@@ -16,19 +16,19 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class demo3
  */
-@WebServlet("/RegisterPothole")
-public class RegisterPothole extends HttpServlet {
+@WebServlet("/RegisterPotholeEnd")
+public class RegisterPotholeEnd extends HttpServlet {
 
-    static String url = "url";
-	static String user = "username";
-	static String password = "password";
+    static String url = "jdbc:mysql://ec2-18-205-25-11.compute-1.amazonaws.com:3306/myDB";
+	static String user = "trevorthomas";
+	static String password = "pass";
 	private static final long serialVersionUID = 1L;
 
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterPothole() {
+    public RegisterPotholeEnd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,12 +40,11 @@ public class RegisterPothole extends HttpServlet {
         // TODO Auto-generated method stub
         String sql;
         Connection connection = null;
-        Statement statement = null;
         PreparedStatement statement1 = null;
+        PreparedStatement statement2 = null;
         ResultSet rs = null;
-        PreparedStatement preparedStatement = null;
         String iaddress = request.getParameter("address");
-        int iseverity = request.getParameter("severity");
+        String iseverity = request.getParameter("severity");
         String istatus = request.getParameter("status");
         String imaterial = request.getParameter("material");
         response.setContentType("text/html");
@@ -78,52 +77,64 @@ public class RegisterPothole extends HttpServlet {
             System.out.println("Connection Failed!:\n" + e2.getMessage());
         }
 
-        sql = "select from potholes * where address= ?";
-        statement1.setString(1, iaddress);
-
         try {
-            statement1 = connection.prepareStatement(sql);
-            result = statement1.executeQuery();
+	        sql = "select * from potholes where address= ?;";
+	        statement1 = connection.prepareStatement(sql);
+	        statement1.setString(1, iaddress);
+            rs = statement1.executeQuery();
         } 
         catch(SQLException e) {
             e.printStackTrace();
         }
-
-        if (result)
-
-
-
-        sql = "insert into potholes (address, severity, status, hits, material) values(?,?,?,?,?);";
-        
-
         try {
-
-            statement1 = connection.prepareStatement(sql);
-            String titleval = title;
-            String authorval = author;
-            String genreval = genre;
-            String isbnval = isbn;
-            String sumval = summary;
-            statement1.setString(1, title);
-            statement1.setString(2, author);
-            statement1.setString(3, genre);
-            statement1.setString(4, isbn);
-            statement1.setString(5, summary);
-
-        } catch (SQLException e2) {
-            // TODO Auto-generated catch block
-            e2.printStackTrace();
+        if (!rs.isBeforeFirst()) {
+        	
+        	sql = "insert into potholes (address, severity, status, hits, material) values(?,?,?,?,?);";
+        	statement1 = connection.prepareStatement(sql);
+        	statement1.setString(1, iaddress);
+            statement1.setString(2, iseverity);
+            statement1.setString(3, istatus);
+            statement1.setString(4, "1");
+            statement1.setString(5, imaterial);
+            
+            statement1.executeUpdate();            
+        }
+        else {
+        	try {
+        	//remove the old listing
+        	String sql1 = "delete from potholes where address= " + "\"" + iaddress + "\";";
+        	statement1 = connection.prepareStatement(sql1);
+        	
+        	int hits = Integer.parseInt(rs.getString("hits"));
+            String address = rs.getString("address");
+            String severity = rs.getString("severity");
+            String status = istatus;
+            String newhits = Integer.toString(hits + 1);
+            String material = rs.getString("material");
+            
+            String sql2 = "insert into potholes (address, severity, status, hits, material) values(?,?,?,?,?);";
+            statement2 = connection.prepareStatement(sql2);
+        	statement2.setString(1, address);
+            statement2.setString(2, severity);
+            statement2.setString(3, status);
+            statement2.setString(4, newhits);
+            statement2.setString(5, material);
+            
+            
+            	statement1.executeUpdate();
+            	statement2.executeUpdate();
+            }
+            catch(SQLException e) {
+            	e.printStackTrace();
+            } 
+        }} catch (SQLException e) {
+        	e.printStackTrace();
         }
 
-        try {
-
-            statement1.executeUpdate();
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        out.println("Thank you for registering this book details");
+        out.println("Thank you for registering this pothole");
         out.println("</body></html>");
+        try {connection.close();}
+        catch(SQLException e) {e.printStackTrace();}
     }
 
     /**
