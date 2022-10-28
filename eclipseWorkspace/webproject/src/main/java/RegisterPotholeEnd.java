@@ -101,6 +101,7 @@ public class RegisterPotholeEnd extends HttpServlet {
         }
         else {
         	try {
+        		rs.next();
         	//remove the old listing
         	String sql1 = "delete from potholes where address= " + "\"" + iaddress + "\";";
         	statement1 = connection.prepareStatement(sql1);
