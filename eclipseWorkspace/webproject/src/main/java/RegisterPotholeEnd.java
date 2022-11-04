@@ -58,7 +58,8 @@ public class RegisterPotholeEnd extends HttpServlet {
             "<html>\n" + //
             "<head><title>" + pagetitle + "</title></head>\n" + //
             "<body bgcolor = \"#CCCCFF\">\n" + //
-            "<h1 align = \"center\">" + pagetitle + "</h1>\n");
+            "<h1 align = \"center\">" + pagetitle + "</h1>\n" + //
+            "<a href="PotholeDashboard.java">"  + Go to Dashboard + "</a>");
 
 
         try {
