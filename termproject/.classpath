@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/ksril/OneDrive - University of Nebraska at Omaha/School/Junior Year/Fall/Intro to software/workspaceCSCI4830/termproject/javax.servlet-api-4.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ksril/OneDrive - University of Nebraska at Omaha/School/Junior Year/Fall/Intro to software/workspaceCSCI4830/termproject/mockito-all-2.0.2-beta.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
